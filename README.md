@@ -17,19 +17,19 @@ Each funtionality is done using different Api calls.
 Key Features
 --------
 
-List all movies
+-List all movies
 
-Get total seats for a movie
+-Get total seats for a movie
 
-Get available seats for a movie
+-Get available seats for a movie
 
-Get held seats for a movie
+-Get held seats for a movie
 
-Get booked seats for a movie
+-Get booked seats for a movie
 
-Hold a seat temporarily
+-Hold a seat temporarily
 
-Book a seat (from hold or directly)
+-Book a seat (from hold or directly)
 
 
 
@@ -65,4 +65,21 @@ A seat can be booked directly without holding
 
 All booking operations are done inside database transactions
 
+Databses
+--
+CREATE TABLE movie_shows (
+    show_id INT PRIMARY KEY AUTO_INCREMENT,
+    movie_name VARCHAR(100),
+    total_seats INT
+);
+
+CREATE TABLE movie_seats (
+    seat_id INT PRIMARY KEY AUTO_INCREMENT,
+    show_id INT,
+    seat_number VARCHAR(10),
+    status ENUM('AVAILABLE','HELD','BOOKED'),
+    hold_by INT NULL,
+    hold_expires_at DATETIME NULL,
+    FOREIGN KEY (show_id) REFERENCES movie_shows(show_id)
+);
 
